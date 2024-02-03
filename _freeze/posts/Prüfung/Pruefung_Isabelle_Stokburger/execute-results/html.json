@@ -1,0 +1,18 @@
+{
+  "hash": "f6991a68dd9d3e2e778fedb52b56ffe4",
+  "result": {
+    "markdown": "---\ntitle: \"Hate Speech Klassifikation\"\nauthor: \"Isabelle Stokburger\"\ndate: \"2024-02-09\"\ncategories: [Textanalyse, Tidymodels, Klassifikation, Transformers, Neuronale Netze]\nimage: \"Titelbild.webp\"\n---\n\n\n# Hate Speech Klassifikation\nDie Klassifikation von Hate Speech mit R bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Durch den Einsatz spezialisierter Pakete wie 'tm' und 'caret', ermöglicht R die Verarbeitung natürlicher Sprache und maschinelles Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren.\n\n## Vorbereitung\n\n### Daten laden\n\n### Pakete laden\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n:::\n\n\n------------------------------------------------------------------",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<link href=\"../../site_libs/pagedtable-1.1/css/pagedtable.css\" rel=\"stylesheet\" />\r\n<script src=\"../../site_libs/pagedtable-1.1/js/pagedtable.js\"></script>\r\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

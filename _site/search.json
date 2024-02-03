@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Profil",
+    "section": "",
+    "text": "Über mich: Stundetin der angewandten Wirtschafts- und Medienpsychologie an der Hochschule in Ansbach"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "IsabelleStokburger Blog",
+    "section": "",
+    "text": "Hate Speech Klassifikation\n\n\n\n\n\n\n\nTextanalyse\n\n\nTidymodels\n\n\nKlassifikation\n\n\nTransformers\n\n\nNeuronale Netze\n\n\n\n\n\n\n\n\n\n\n\nFeb 9, 2024\n\n\nIsabelle Stokburger\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/Prüfung/Pruefung_Isabelle_Stokburger.html",
+    "href": "posts/Prüfung/Pruefung_Isabelle_Stokburger.html",
+    "title": "Hate Speech Klassifikation",
+    "section": "",
+    "text": "Die Klassifikation von Hate Speech mit R bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Durch den Einsatz spezialisierter Pakete wie ‘tm’ und ‘caret’, ermöglicht R die Verarbeitung natürlicher Sprache und maschinelles Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren.\n\n\n\n\n\n\n\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "posts/Prüfung/Pruefung_Isabelle_Stokburger.html#vorbereitung",
+    "href": "posts/Prüfung/Pruefung_Isabelle_Stokburger.html#vorbereitung",
+    "title": "Hate Speech Klassifikation",
+    "section": "",
+    "text": "library(tidyverse)"
+  }
+]

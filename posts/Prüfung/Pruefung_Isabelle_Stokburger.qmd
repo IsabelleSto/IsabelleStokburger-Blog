@@ -1,0 +1,21 @@
+---
+title: "Hate Speech Klassifikation"
+author: "Isabelle Stokburger"
+date: "2024-02-09"
+categories: [Textanalyse, Tidymodels, Klassifikation, Transformers, Neuronale Netze]
+image: "Titelbild.webp"
+---
+
+# Hate Speech Klassifikation
+Die Klassifikation von Hate Speech mit R bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Durch den Einsatz spezialisierter Pakete wie 'tm' und 'caret', ermöglicht R die Verarbeitung natürlicher Sprache und maschinelles Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren.
+
+## Vorbereitung
+
+### Daten laden
+
+### Pakete laden
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+------------------------------------------------------------------
