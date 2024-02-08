@@ -6,16 +6,678 @@ categories: [Textanalyse, Tidymodels, Klassifikation, Transformers, Neuronale Ne
 image: "Titelbild.webp"
 ---
 
-# Hate Speech Klassifikation
-Die Klassifikation von Hate Speech mit R bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Durch den Einsatz spezialisierter Pakete wie 'tm' und 'caret', ermöglicht R die Verarbeitung natürlicher Sprache und maschinelles Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren.
+Hate Speech Klassifikation
+Die Klassifikation von Hate Speech mit R in der Version 4.3.1 bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte  zu analysieren. Das Stastikprogramm R eignet sich gut zur Verarbeitung natürlicher Sprache und maschinellen Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren. Im Folgenden werden mit Hilfe verschiedener Textmining Methoden Tweets auf Hate Speech hin untersucht. Darüber hinaus werden prädiktive Modelle zur Klassifikation von Hate-Speech angewandt. 
 
-## Vorbereitung
+# Vorbereitung
+Zu Beginn wird sich mittels der explorativen Datenanalyse ein Überblick über die Tweets verschafft. Das hilft ein besseres Verständnis für die Daten zu erlangen. Außerdem können so geeignete Textfeatures zur Vorhersage identifiziert werden, welche später im Rezept mitaufgenommen werden.
 
-### Daten laden
+
+## Daten laden
+```{r include=FALSE}
+datenpfad<-"C:/Users/isast/Documents/Laptop/HS Ansbach/5. Semester/Data Science II/Prüfung/d_hate.csv"
+```
+
+```{r message=FALSE, warning=FALSE}
+d_hate<-
+  read.csv(datenpfad)
+```
+
 
 ### Pakete laden
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(tictoc)
+library(tidymodels)
+library(tidytext)
+library(beepr)
+library(discrim)
+library(naivebayes)
+library(textrecipes) 
+library(syuzhet)
+library(tokenizers)  # Tokenisieren
+library(tidytext)  # Textanalyse-Tools
+library(SnowballC)  # Stemming
+library(lsa)  # Stopwörter
+library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
+library(textclean)  # Emojis ersetzen
+library(wordcloud)  # unübersichtlich, aber manche mögen es
+library(ggplot2)
 ```
 
+
+```{r}
+d_hate1<-
+  d_hate%>%
+  select(tweet, class)%>%
+  mutate(id = as.character(1:nrow(.)))
+
+d_hate1%>%
+  count(class)
+
+# Anzahl der Tweets pro Klasse zählen
+class_counts <- d_hate1 %>%
+  count(class)
+
+# Histogramm erstellen
+ggplot(class_counts, aes(x = class, y = n, fill = class)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  scale_fill_manual(values = c("hatespeech" = "yellow", "other" = "cyan")) +
+  labs(title = "Verteilung der Tweets nach Klasse",
+       x = "Klasse",
+       y = "Anzahl der Tweets") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+Das Balkendiagramm zeigt die Verteilung der Tweet in den zwei Klassen "hate_speech" und "other". Rund 25% der Tweets sind im Datensatz als Hate Speech gelabelt. 
+
+
+#Tweets aufbereiten
+```{r message=FALSE, warning=FALSE}
+d_hate1 <- d_hate1 %>%
+  mutate(tweet = str_remove_all(tweet, "http[s]?://\\S+")) %>%
+  mutate(tweet = str_remove_all(tweet, "\""))%>%
+  mutate(tweet = tolower(tweet)) %>%
+  mutate(tweet = gsub("[[:digit:]]", "", tweet))
+```
+
+In diesem Schritt entferne ich alle URLs und Ziffern. Außerdem werden alle Buchstaben in der Tweet-Spalte zu Kleinbuchstaben umgewandelt. Das sorgt dafür, dass die Groß-/Kleinschreibung in der Textanalyse nicht berücksichtigt wird, was hilft, Duplikate zu vermeiden. Wenn es sich um deutsche Tweets handelt würde, sollte davon abgesehen werden, weil die verschiedenen Wortarten durch die Groß-/ Kleinschreibung gut unterschieden und als Textfeature zur Vorhersage nützlich wären.
+
+
+```{r message=FALSE, warning=FALSE}
+sum(is.na(d_hate1))
+```
+Gut zu wissen, es gibt keine fehlenden Werte.
+
+
+```{r}
+visdat::vis_dat(d_hate1, warn_large_data = FALSE)
+```
+Zudem gibt es keine fehlenden Werte und alle Variablen sind vom Typ ´character´. Das ist nur logisch, weil es sich um Text handelt und noch keine Tokenisierung durchgeführt wurde. 
+
+##Aufteilung in Test- und Traindatensatz
+```{r message=FALSE, warning=FALSE}
+set.seed(123)
+d_split <- initial_split(d_hate1, prop = .8, strata = class)
+d_train <- training(d_split)
+d_test <- testing(d_split)
+```
+
+
+###Seiten und Wörter zählen
+```{r}
+str_count(d_train$tweet, pattern = "\\w") %>% sum(na.rm = TRUE)
+```
+Die zu untersuchende Zeile "Tweet" enthält 36.9224 Wörter. Das ist eine ausreichende Menge, um ein Modell sinnvoll trainieren zu können.
+
+
+-----------------------------------------------------------------------------------
+Nachstehend werden verschiedene Textmerkmale, auch als Textfeatures bezeichnet, untersucht. Durch das Analysieren der spezifischen Eigenschaften können Informationen über den Inhalt, die Struktur und die Bedeutung der Tweets gewonnen werden. Das hilft dabei, im späteren Verlauf Hassrede zu identifizieren. 
+Anschließend werden die Tweets auf
+- Wortfrequenzen
+- Schimpfwörter
+- Emotionale Ladung
+untersucht.
+
+##Tokenisierung
+```{r}
+tokens <- d_train %>%
+  unnest_tokens(word, tweet)
+```
+Die Tokenisierung stellt einen wichtigen Schritt in der Textverarbeitung dar. Sie teilt den Text in sinnvolle Einheiten, sogenannte Tokens auf. Erst das ermöglicht weitere Verarbeitungsschritte, wie beispielsweise die Stoppwordentfernung. 
+
+##Entfernen von Stopwords
+###Stopwords für deutsch & englisch laden und kombinieren
+```{r}
+data(stopwords_de, package = "lsa")
+data(stopwords_en, package = "lsa")
+stopwords_en <- tibble(word = stopwords_en)
+stopwords_de <- tibble(word = stopwords_de)
+stopwords <- bind_rows(stopwords_de, stopwords_en)
+```
+
+```{r}
+tokens_filtered <- tokens %>%
+  anti_join(stopwords, by = "word")
+```
+Das Entfernen von *stopwords* hat den Vorteil, dass durch das Entfernen häufig vorkommende Wörter ohne semantische Bedeutung wie "a", "and", "so"... Rauschen im Text reduziert und die Analysequalität verbessert wird. Darüber hinaus verringert sich die zu verarbeitende Datenmenge. 
+
+
+##Textlänge
+```{r}
+text_length <- tokens_filtered %>%
+  group_by(id) %>%
+  summarise(word_count = n())
+```
+Die Textlänge kann Aufschluss über die Menge und Vielfalt der Informationen der Tweets geben. Gibt es möglicherweisee ungewöhnliche kurze oder lange Tweets, die genauer betrachtet werden sollten?
+
+
+##Worthäufigkeit
+```{r}
+word_freq <- tokens_filtered %>%
+  count(word, sort = TRUE)
+
+print(head(text_length, n = 20)) # Die Textlänge der ersten 10 Tweets
+print(head(word_freq, n = 20))   # Die 10 häufigsten Wörter
+
+#Berechnung der Wortfrequenz
+word_freq_filtered <- tokens_filtered %>%
+  count(word, sort = TRUE) %>%
+  top_n(20, n)
+```
+
+###Visualisierung der Textlänge
+```{r}
+text_length_filtered <- tokens_filtered %>%
+  group_by(id) %>%
+  summarise(word_count = n())
+
+# Aktualisierte Visualisierung: Histogramm der Textlänge ohne Stoppwörter
+ggplot(text_length_filtered, aes(x = word_count)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "white") +
+  theme_minimal() +
+  labs(title = "Histogramm der Textlänge ohne Stoppwörter", x = "Anzahl der Wörter pro Tweet", y = "Häufigkeit")
+```
+Die Tweets bewegen sich alle in einem ähnlichen Rahmen und sind i.d.R zwischen drei und 13 Wörtern lang.
+
+
+##Visualisierung 1: Barplot der häufigsten Wörter ohne Stopwords
+```{r}
+ggplot(word_freq_filtered, aes(x = reorder(word, n), y = n)) +
+  geom_col(fill = "coral", color = "white") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Top 20 häufigste Wörter", x = "", y = "Häufigkeit")
+```
+
+Allein unter den 20 häufigsten Wörtern befinden sich bereits sieben Schimpfwörter. Die Genauigkeit der Grafik könnte noch verbessert werden, indem zum Beispiel ähnliche Ausdrücke wie "nigga" und "nigger" zusammengefasst werden, sodass der Barplot die kummulierte Häufigkeit anzeigt. Zusätzlich könnten weitere stopwords wie "it" durch die Hinzunahme eines weiteren Stopwords-Datensatzes entfernt werden.
+
+
+###Wörter ohne Aussagekraft aus tokenisierten Daten entfernen
+```{r}
+tokens_filtered <- tokens_filtered %>%
+  filter(word != "rt")
+```
+Da der Ausdruck "rt" keine Aussagekraft hat, wird er aus dem Datensatz entfernt.
+
+
+--------------------------------------------------------------------------------
+
+
+#Sentimentanalyse
+```{r message=FALSE, warning=FALSE}
+senti_afinn <- get_sentiments("afinn") %>% 
+  mutate(neg_pos = case_when(value > 0 ~ "pos",
+                             TRUE ~ "neg"))
+
+# Sentimentanalyse durchführen
+tokens_senti <- tokens_filtered %>%
+  inner_join(senti_afinn, by = "word")
+```
+Ein ebenfalls sehr wichtiges Werkzeug zur Datenanalyse ist die Sentimentanalyse. Mit ihr kann festgestellt werden, ob unsere Tweets bzw. Tokens eine negative oder positive Polung aufweisen, wobei Hate Speech mit einer negativen einhergeht. Die Textdaten werden so gefiltert, dass nur Wörter mit Sentimentwerten übrig bleiben.
+
+
+##Berechnung der durchschnittlichen Sentimentwerte pro Polarität und Tweet
+```{r}
+tokens_senti2 <-
+  tokens_senti %>% 
+  group_by(id, neg_pos) %>% 
+  summarise(senti_avg = mean(value))
+
+head(tokens_senti2)
+```
+
+##Zusammenführung der Sentimentwerte und Textlänge in den Hauptdatensatz
+```{r}
+sentis_wide <-
+  tokens_senti2 %>% 
+  pivot_wider(names_from = "neg_pos", values_from = "senti_avg")
+
+sentis_wide %>% head()
+
+#Zusammenführung mit Ursprungsdatensatz
+d_train2<-
+  d_train%>%
+  full_join(sentis_wide)
+
+d_train2 <- d_train2 %>%
+  left_join(text_length, by = "id")
+```
+
+```{r}
+senti_afinn%>%
+  select(value, neg_pos)%>%
+  describe_distribution()
+
+tokens_senti %>% 
+  summarise(senti_sum = mean(value) %>% round(2))
+```
+
+Das Sentimentlexikon ist insgesamt mit einem Wert von -0.59 leicht negativ. Die Tweets liegen mit -1.01 deutlich im negativen Bereich.
+
+
+##Visualisierung der Sentimentanalyse
+```{r}
+library(ggplot2)
+
+tokens_senti %>%
+  count(word, neg_pos, sort = TRUE) %>%
+  ungroup() %>%
+  group_by(neg_pos) %>%
+  slice_max(n, n = 10)%>%
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(n, word, fill = neg_pos)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~neg_pos, scales = "free_y") +
+  labs(x = "Häufigkeit",
+       y = "Wort") +
+  theme_minimal()
+```
+Auffällig ist, dass die negativ behafteten Wörter insgesamt deutlich häufiger vorkommen, als die positiven. Wenigsten wird der Ausdruck "love" häufiger verwendet als "hate.
+
+
+--------------------------------------------------------------------------------
+
+
+#Bigramme identifizieren
+Bigramme sind Paare von Wörtern, die häufig zusammen auftreten. Hierfür wird der Datensatz mit den Tweets verwenden, da Bigramme aus aufeinanderfolgenden Wortpaaren erstellt werden.
+
+
+Datensatz mit Tweets ohne stopwords erstellen
+
+```{r}
+# Benötigte Pakete laden
+library(dplyr)
+library(tidytext)
+library(stopwords)
+
+# Stopwörter für Deutsch holen
+stopwords_en <- stopwords::stopwords(language = "en")
+
+
+bigrame2 <- d_train %>% dplyr::select(class, tweet) %>% unnest_tokens(bigram, tweet, token = "ngrams", n = 2)
+
+bigram_sep <- bigrame2 %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+bi_filt <- bigram_sep %>%
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word)
+
+bigram_unite<-bi_filt%>%
+  unite(bigram, word1, word2, sep = " ")
+  
+# Häufigkeit der Bigramme zählen
+bigram_freq <- bigram_unite %>%
+  count(bigram, sort = TRUE)
+
+# Die 10 häufigsten Bigramme auswählen
+top_bigrams <- head(bigram_freq, 10)
+
+# Überprüfen der Ergebnisse
+print(top_bigrams)
+
+```
+
+
+Visualisierung der Bigramme
+```{r}
+# Visualisierung der Top-Bigramme
+ggplot(top_bigrams, aes(x = reorder(bigram, n), y = n)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Top 10 häufigste Bigramme",
+       x = "Bigramme",
+       y = "Häufigkeit") +
+  theme_minimal()
+```
+##Stemming
+```{r}
+# Stemming
+tokens_filtered$word <- wordStem(tokens_filtered$word, language = "en")
+
+# Häufigkeiten zählen
+word_freq_stem <- tokens_filtered %>%
+  count(word, sort = TRUE)
+
+# Die 10 häufigsten Wörter auswählen
+top_words_stem <- head(word_freq_stem, 10)
+
+# Visualisierung
+ggplot(top_words_stem, aes(x = reorder(word, n), y = n, fill = word)) +
+  geom_col() +
+  coord_flip() +  # Um die Wörter horizontal anzuzeigen
+  labs(title = "Top 10 gestemmte Wörter", x = "Wörter", y = "Häufigkeit") +
+  scale_fill_viridis_d() +
+  theme_minimal()
+```
+
+#Große Aussagekraft hat das nicht und neue Erkenntnisse kann ich daraus nicht ziehen. Zumindest ist es bunt und hebt die Stimmung für weiter Analysen
+
+
+```{r}
+comms_bigram <- 
+  d_train2 %>%
+  unnest_tokens(bigram, tweet, token = "ngrams", n = 2) %>%
+  filter(!is.na(bigram))
+
+comms_bigram <- comms_bigram %>%
+  separate(bigram, c("word1", "word2"), sep = " ")%>%
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word)
+
+comms_bigram %>%
+  unite(bigram, word1, word2, sep = " ") %>%
+  count(bigram, sort = TRUE) %>%
+  slice_max(n, n = 10)%>%
+  mutate(bigram = reorder(bigram, n)) %>%
+  ggplot(aes(n, bigram)) +
+  geom_col(fill = "#8175aa") +
+  labs(title = "Bigramme nach Häufigkeit",
+       x = "Häufigkeit",
+       y = "Bigram") +
+  theme_minimal()
+```
+
+
+--------------------------------------------------------------------------------
+
+#Schimpfwörter
+Tabelle stammt hier her: https://www.kaggle.com/datasets/johnzhangy/swear-words-dataset 
+```{r}
+schimpf<-
+  read.csv("~/Laptop/HS Ansbach/5. Semester/Data Science II/swearWords.csv")
+
+# Zuerst die Schimpfwörter aus der Liste extrahieren
+swear_words_list <- schimpf$swearwords
+
+# Filtern der Tokens nach Schimpfwörtern und Zählen ihrer Häufigkeit
+swear_words_freq <- tokens_filtered %>%
+  filter(word %in% swear_words_list) %>%
+  count(word, sort = TRUE)
+
+# Die häufigsten Schimpfwörter auswählen
+top_swear_words <- head(swear_words_freq, 10)
+```
+
+Visualisierung
+```{r}
+# Visualisierung der Top-Schimpfwörter
+ggplot(top_swear_words, aes(x = reorder(word, n), y = n)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Top 10 häufigsten Schimpfwörter",
+       x = "Schimpfwörter",
+       y = "Häufigkeit") +
+  theme_minimal()
+```
+Schimpfwörter in Datensatz als zusätzlichen Prädiktor hinzufügen
+```{r}
+# Überprüfen, ob ein Tweet Schimpfwörter enthält
+d_train2 <- d_train2 %>%
+  mutate(swearwords = ifelse(str_detect(tolower(tweet), paste(schimpf$swearwords, collapse="|")), "ja", "nein"))
+```
+
+
+
 ------------------------------------------------------------------
+#Vorhersage
+
+Nachdem ich mir mit der EDA einen Überblick über die Daten verschafft habe, werde ich jetzt verschiedene Algorithmen darauf trainieren, Hate Speech vorhersagen. Zu Beginn werde ich ein Rezept aufstellen, dass die Erkenntnisse meiner bisherigen Analyse aufgreift.
+
+#Vorhersage mit logistic regression
+
+#Rezept
+Das Rezept enthält die Textlänge, Sentimentwerte, Schimpfwörter und tfidf.
+
+```{r}
+library(syuzhet)
+
+rec1 <-
+  recipe(class ~ ., data = d_train) %>%
+  update_role(id, new_role = "id") %>% 
+  step_text_normalization(tweet) %>%
+  step_tokenize(tweet, token = "words") %>%
+  step_tokenfilter(tweet, max_tokens = 1e2) %>%
+  step_stopwords(tweet, language = "en", stopword_source = "snowball") %>%
+  step_stem(tweet) %>%  
+  step_tfidf(tweet)
+ 
+  # step_mutate(senti = get_sentiment(tweet))
+
+#step_mutate(insult = get_sentiment(tweet,
+                                       #method = "custom",
+                                       #lexicon = insults)) %>% 
+```
+
+```{r}
+baked <- rec1 %>% 
+  prep() %>% 
+  bake(new_data = NULL)
+baked
+```
+
+Modell
+```{r}
+lm <- naive_Bayes() %>%
+  set_mode("classification") %>%
+  set_engine("naivebayes")
+lm
+```
+
+Kreuzvalidierung
+```{r}
+set.seed(42)
+folds1 <- vfold_cv(d_train, v = 5)
+```
+
+Workflow
+```{r}
+wf1 <-
+  workflow() %>% 
+  add_recipe(rec1) %>% 
+  add_model(lm)
+```
+
+Fitting
+```{r}
+fit1 <-
+  fit_resamples(
+    wf1,
+    folds1,
+    control = control_resamples(save_pred = TRUE)
+  )
+
+```
+
+Performanze evaluieren
+```{r}
+wf1_performance <-
+  collect_metrics(fit1)
+wf1_performance
+
+wf_preds <-
+  collect_predictions(fit1)
+wf_preds
+```
+
+Visualisierung
+```{r}
+wf_preds %>% 
+  group_by(id) %>% 
+  roc_curve(truth = class, .pred_other) %>% 
+  autoplot()
+
+conf_mat_resampled(fit1, tidy = FALSE) %>% 
+  autoplot(type = "heatmap")
+```
+Puh, das ist ziemlich unterirdisch. Das Modell hat eine sehr geringe Sensitivität. Das bedeutet, dass es schlecht darin ist Hate Speech zu identifizieren. Das Modell arbeitet schlechter als ein zufälliger Klassifikator und sagt die falschen Klassen hervor. Ziel ist ein Modell aufzustellen, dessen ROC-Kurce nahe der y-Achse und an der oberen Grenze des Diagramms liegt. Dann hätte es eine hohe Sensitivität und Spezifität.
+
+
+##2.Vorhersage mit Workflow-Set
+Modelle definieren
+
+```{r}
+if (!requireNamespace("doParallel", quietly = TRUE)) {
+  install.packages("doParallel")
+}
+
+library(doParallel)
+
+registerDoParallel(cores = detectCores())
+```
+
+```{r}
+##2.Vorhersage mit Workflow-Set
+
+# Pakete laden
+library(tidymodels)
+library(textrecipes)
+library(workflowsets)
+library(syuzhet)      # Für get_sentiment()
+
+
+# Rezept vorbereiten
+rec2 <-
+  recipe(class ~ ., data = d_train) %>%
+  update_role(id, new_role = "id") %>% 
+  step_text_normalization(tweet) %>%
+  step_tokenize(tweet, token = "words") %>%
+  step_tokenfilter(tweet, max_tokens = 1e2) %>%
+  step_stopwords(tweet, language = "en", stopword_source = "snowball") %>%
+  step_stem(tweet) %>%
+  step_tfidf(tweet)  
+
+
+# Modelle definieren
+model_xgb <- boost_tree(trees = 100) %>%
+  set_engine("xgboost") %>%
+  set_mode("classification")
+
+model_kknn <- nearest_neighbor(neighbors = tune()) %>%
+  set_engine("kknn") %>%
+  set_mode("classification")
+
+model_rf <- rand_forest(trees = 100) %>%
+  set_engine("ranger") %>%
+  set_mode("classification")
+
+# Workflow-Set erstellen
+wf_set <- workflow_set(
+  preproc = list(text_prep = rec2),
+  models = list(xgb = model_xgb, kknn = model_kknn, rf = model_rf),
+  cross = TRUE
+)
+
+# Resampling definieren
+set.seed(123)
+cv_folds <- vfold_cv(d_hate, v = 3, strata = class)
+
+# Tuning und Auswahl des besten Modells
+results <- wf_set %>%
+  workflow_map(
+    fn = "tune_grid",
+    resamples = cv_folds,
+    grid = 5,
+    seed = 42,
+    metrics = metric_set(roc_auc),
+    verbose = TRUE, 
+    control = control_resamples(save_pred = TRUE)
+  )
+
+tune::autoplot(results) +
+  theme(legend.position = "bottom")
+
+
+```
+
+```{r}
+results %>% 
+  collect_metrics() %>% 
+  arrange(-mean)
+```
+
+## Bestes Modell extrahieren
+```{r}
+best_ml <- 
+  extract_workflow_set_result(results, "text_prep_rf") %>% 
+  select_best()
+
+best_wf <- 
+wf_set %>% 
+  extract_workflow("text_prep_rf")
+
+best_wf_finalized <- 
+  best_wf %>% 
+  finalize_workflow(best_ml)
+
+fit_final <- fit(best_wf_finalized, data = d_train)
+```
+
+
+Visualisierung
+```{r}
+library(ggplot2)
+
+# Vorhersagen für den Testdatensatz machen, wenn noch nicht geschehen
+predictions <- predict(fit_final, new_data = d_test, type = "prob")
+
+# Vorhersage-Verteilung visualisieren
+predictions %>%
+  bind_cols(d_test %>% select(class)) %>%
+  ggplot(aes(x = `.pred_hate speech`, fill = class)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 30) +
+  labs(x = "Predicted Probability", y = "Count", fill = "Actual Class")
+```
+
+
+
+##3.Vorhersage
+#Prädiktives Modell für Textdaten von Hugging face
+```{r}
+library(reticulate)
+```
+
+```{r}
+use_virtualenv("~/Laptop/HS Ansbach/5. Semester/Data Science II/Prüfung/IsaBlogneu/viren")
+```
+
+```{python}
+from transformers import pipeline
+import tensorflow as tf
+```
+
+```{python}
+classifier = pipeline("text-classification", model="facebook/roberta-hate-speech-dynabench-r4-target")
+```
+
+```{r}
+tweets <- d_test$tweet
+```
+
+```{python}
+tweets = r.tweets
+results = classifier(tweets)
+```
+
+```{r}
+result <- py$results
+labels <- lapply(result, function(element) element$label)
+tweets_hate <- cbind(d_test, pred = unlist(labels))
+tweets_hate <- tweets_hate %>% 
+  mutate(class = as.factor(class),
+         pred = case_when(pred == "hate" ~ "hate speech",
+            pred == "nothate" ~ "other"),
+         pred = as.factor(pred))
+```
+
+```{r}
+my_metrics2 <- metric_set(accuracy, f_meas)
+my_metrics2(tweets_hate,
+           truth = class,
+           estimate = pred)
+```
+Das Modell hat eine Genauigkeit von 91%. Das nenne ich traumhaft. Kein Vergleich zu den vorherigen Modellen.
+
+

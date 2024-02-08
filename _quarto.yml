@@ -10,10 +10,12 @@ website:
         href: https://github.com/IsabelleSto
 format:
   html:
+    number-sections: true
+    number-depth: 3
+    smooth-scroll: true
     theme: journal
     toc: true
     df-print: paged
     css: styles.css
 
 editor: visual
-
