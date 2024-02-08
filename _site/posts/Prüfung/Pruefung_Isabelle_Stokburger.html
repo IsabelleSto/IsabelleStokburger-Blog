@@ -180,53 +180,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link active" data-scroll-target="#vorbereitung"><span class="header-section-number">1</span> Vorbereitung</a>
+  <li><a href="#hate-speech-klassifikation" id="toc-hate-speech-klassifikation" class="nav-link active" data-scroll-target="#hate-speech-klassifikation"><span class="header-section-number">1</span> Hate Speech Klassifikation</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">2</span> Vorbereitung</a>
   <ul class="collapse">
-  <li><a href="#daten-laden" id="toc-daten-laden" class="nav-link" data-scroll-target="#daten-laden"><span class="header-section-number">1.1</span> Daten laden</a>
+  <li><a href="#daten-laden" id="toc-daten-laden" class="nav-link" data-scroll-target="#daten-laden"><span class="header-section-number">2.1</span> Daten laden</a>
   <ul class="collapse">
-  <li><a href="#pakete-laden" id="toc-pakete-laden" class="nav-link" data-scroll-target="#pakete-laden"><span class="header-section-number">1.1.1</span> Pakete laden</a></li>
+  <li><a href="#pakete-laden" id="toc-pakete-laden" class="nav-link" data-scroll-target="#pakete-laden"><span class="header-section-number">2.1.1</span> Pakete laden</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#tweets-aufbereiten" id="toc-tweets-aufbereiten" class="nav-link" data-scroll-target="#tweets-aufbereiten"><span class="header-section-number">2</span> Tweets aufbereiten</a>
+  <li><a href="#tweets-aufbereiten" id="toc-tweets-aufbereiten" class="nav-link" data-scroll-target="#tweets-aufbereiten"><span class="header-section-number">3</span> Tweets aufbereiten</a>
   <ul class="collapse">
-  <li><a href="#aufteilung-in-test--und-traindatensatz" id="toc-aufteilung-in-test--und-traindatensatz" class="nav-link" data-scroll-target="#aufteilung-in-test--und-traindatensatz"><span class="header-section-number">2.1</span> Aufteilung in Test- und Traindatensatz</a>
+  <li><a href="#aufteilung-in-test--und-traindatensatz" id="toc-aufteilung-in-test--und-traindatensatz" class="nav-link" data-scroll-target="#aufteilung-in-test--und-traindatensatz"><span class="header-section-number">3.1</span> Aufteilung in Test- und Traindatensatz</a>
   <ul class="collapse">
-  <li><a href="#seiten-und-wörter-zählen" id="toc-seiten-und-wörter-zählen" class="nav-link" data-scroll-target="#seiten-und-wörter-zählen"><span class="header-section-number">2.1.1</span> Seiten und Wörter zählen</a></li>
+  <li><a href="#seiten-und-wörter-zählen" id="toc-seiten-und-wörter-zählen" class="nav-link" data-scroll-target="#seiten-und-wörter-zählen"><span class="header-section-number">3.1.1</span> Seiten und Wörter zählen</a></li>
   </ul></li>
-  <li><a href="#tokenisierung" id="toc-tokenisierung" class="nav-link" data-scroll-target="#tokenisierung"><span class="header-section-number">2.2</span> Tokenisierung</a></li>
-  <li><a href="#entfernen-von-stopwords" id="toc-entfernen-von-stopwords" class="nav-link" data-scroll-target="#entfernen-von-stopwords"><span class="header-section-number">2.3</span> Entfernen von Stopwords</a>
+  <li><a href="#tokenisierung" id="toc-tokenisierung" class="nav-link" data-scroll-target="#tokenisierung"><span class="header-section-number">3.2</span> Tokenisierung</a></li>
+  <li><a href="#entfernen-von-stopwords" id="toc-entfernen-von-stopwords" class="nav-link" data-scroll-target="#entfernen-von-stopwords"><span class="header-section-number">3.3</span> Entfernen von Stopwords</a>
   <ul class="collapse">
-  <li><a href="#stopwords-für-deutsch-englisch-laden-und-kombinieren" id="toc-stopwords-für-deutsch-englisch-laden-und-kombinieren" class="nav-link" data-scroll-target="#stopwords-für-deutsch-englisch-laden-und-kombinieren"><span class="header-section-number">2.3.1</span> Stopwords für deutsch &amp; englisch laden und kombinieren</a></li>
+  <li><a href="#stopwords-für-deutsch-englisch-laden-und-kombinieren" id="toc-stopwords-für-deutsch-englisch-laden-und-kombinieren" class="nav-link" data-scroll-target="#stopwords-für-deutsch-englisch-laden-und-kombinieren"><span class="header-section-number">3.3.1</span> Stopwords für deutsch &amp; englisch laden und kombinieren</a></li>
   </ul></li>
-  <li><a href="#textlänge" id="toc-textlänge" class="nav-link" data-scroll-target="#textlänge"><span class="header-section-number">2.4</span> Textlänge</a></li>
-  <li><a href="#worthäufigkeit" id="toc-worthäufigkeit" class="nav-link" data-scroll-target="#worthäufigkeit"><span class="header-section-number">2.5</span> Worthäufigkeit</a>
+  <li><a href="#textlänge" id="toc-textlänge" class="nav-link" data-scroll-target="#textlänge"><span class="header-section-number">3.4</span> Textlänge</a></li>
+  <li><a href="#worthäufigkeit" id="toc-worthäufigkeit" class="nav-link" data-scroll-target="#worthäufigkeit"><span class="header-section-number">3.5</span> Worthäufigkeit</a>
   <ul class="collapse">
-  <li><a href="#visualisierung-der-textlänge" id="toc-visualisierung-der-textlänge" class="nav-link" data-scroll-target="#visualisierung-der-textlänge"><span class="header-section-number">2.5.1</span> Visualisierung der Textlänge</a></li>
+  <li><a href="#visualisierung-der-textlänge" id="toc-visualisierung-der-textlänge" class="nav-link" data-scroll-target="#visualisierung-der-textlänge"><span class="header-section-number">3.5.1</span> Visualisierung der Textlänge</a></li>
   </ul></li>
-  <li><a href="#visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords" id="toc-visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords" class="nav-link" data-scroll-target="#visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords"><span class="header-section-number">2.6</span> Visualisierung 1: Barplot der häufigsten Wörter ohne Stopwords</a>
+  <li><a href="#visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords" id="toc-visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords" class="nav-link" data-scroll-target="#visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords"><span class="header-section-number">3.6</span> Visualisierung 1: Barplot der häufigsten Wörter ohne Stopwords</a>
   <ul class="collapse">
-  <li><a href="#wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen" id="toc-wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen" class="nav-link" data-scroll-target="#wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen"><span class="header-section-number">2.6.1</span> Wörter ohne Aussagekraft aus tokenisierten Daten entfernen</a></li>
+  <li><a href="#wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen" id="toc-wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen" class="nav-link" data-scroll-target="#wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen"><span class="header-section-number">3.6.1</span> Wörter ohne Aussagekraft aus tokenisierten Daten entfernen</a></li>
   </ul></li>
-  <li><a href="#berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet" id="toc-berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet" class="nav-link" data-scroll-target="#berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet"><span class="header-section-number">2.7</span> Berechnung der durchschnittlichen Sentimentwerte pro Polarität und Tweet</a></li>
-  <li><a href="#zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz" id="toc-zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz" class="nav-link" data-scroll-target="#zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz"><span class="header-section-number">2.8</span> Zusammenführung der Sentimentwerte und Textlänge in den Hauptdatensatz</a></li>
-  <li><a href="#visualisierung-der-sentimentanalyse" id="toc-visualisierung-der-sentimentanalyse" class="nav-link" data-scroll-target="#visualisierung-der-sentimentanalyse"><span class="header-section-number">2.9</span> Visualisierung der Sentimentanalyse</a></li>
+  <li><a href="#berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet" id="toc-berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet" class="nav-link" data-scroll-target="#berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet"><span class="header-section-number">3.7</span> Berechnung der durchschnittlichen Sentimentwerte pro Polarität und Tweet</a></li>
+  <li><a href="#zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz" id="toc-zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz" class="nav-link" data-scroll-target="#zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz"><span class="header-section-number">3.8</span> Zusammenführung der Sentimentwerte und Textlänge in den Hauptdatensatz</a></li>
+  <li><a href="#visualisierung-der-sentimentanalyse" id="toc-visualisierung-der-sentimentanalyse" class="nav-link" data-scroll-target="#visualisierung-der-sentimentanalyse"><span class="header-section-number">3.9</span> Visualisierung der Sentimentanalyse</a></li>
   </ul></li>
-  <li><a href="#bigramme-identifizieren" id="toc-bigramme-identifizieren" class="nav-link" data-scroll-target="#bigramme-identifizieren"><span class="header-section-number">3</span> Bigramme identifizieren</a>
+  <li><a href="#bigramme-identifizieren" id="toc-bigramme-identifizieren" class="nav-link" data-scroll-target="#bigramme-identifizieren"><span class="header-section-number">4</span> Bigramme identifizieren</a>
   <ul class="collapse">
-  <li><a href="#visualisierung-der-bigramme" id="toc-visualisierung-der-bigramme" class="nav-link" data-scroll-target="#visualisierung-der-bigramme"><span class="header-section-number">3.1</span> Visualisierung der Bigramme</a></li>
-  <li><a href="#stemming" id="toc-stemming" class="nav-link" data-scroll-target="#stemming"><span class="header-section-number">3.2</span> Stemming</a></li>
+  <li><a href="#visualisierung-der-bigramme" id="toc-visualisierung-der-bigramme" class="nav-link" data-scroll-target="#visualisierung-der-bigramme"><span class="header-section-number">4.1</span> Visualisierung der Bigramme</a></li>
+  <li><a href="#stemming" id="toc-stemming" class="nav-link" data-scroll-target="#stemming"><span class="header-section-number">4.2</span> Stemming</a></li>
   </ul></li>
-  <li><a href="#schimpfwörter" id="toc-schimpfwörter" class="nav-link" data-scroll-target="#schimpfwörter"><span class="header-section-number">4</span> Schimpfwörter</a></li>
-  <li><a href="#vorhersage-mit-logistic-regression" id="toc-vorhersage-mit-logistic-regression" class="nav-link" data-scroll-target="#vorhersage-mit-logistic-regression"><span class="header-section-number">5</span> Vorhersage mit logistic regression</a>
+  <li><a href="#schimpfwörter" id="toc-schimpfwörter" class="nav-link" data-scroll-target="#schimpfwörter"><span class="header-section-number">5</span> Schimpfwörter</a></li>
+  <li><a href="#vorhersage-mit-logistic-regression" id="toc-vorhersage-mit-logistic-regression" class="nav-link" data-scroll-target="#vorhersage-mit-logistic-regression"><span class="header-section-number">6</span> Vorhersage mit logistic regression</a>
   <ul class="collapse">
-  <li><a href="#rezept" id="toc-rezept" class="nav-link" data-scroll-target="#rezept"><span class="header-section-number">5.1</span> Rezept</a></li>
-  <li><a href="#vorhersage-mit-workflow-set" id="toc-vorhersage-mit-workflow-set" class="nav-link" data-scroll-target="#vorhersage-mit-workflow-set"><span class="header-section-number">5.2</span> 2.Vorhersage mit Workflow-Set</a></li>
-  <li><a href="#bestes-modell-extrahieren" id="toc-bestes-modell-extrahieren" class="nav-link" data-scroll-target="#bestes-modell-extrahieren"><span class="header-section-number">5.3</span> Bestes Modell extrahieren</a></li>
-  <li><a href="#visualisierung" id="toc-visualisierung" class="nav-link" data-scroll-target="#visualisierung"><span class="header-section-number">5.4</span> Visualisierung</a></li>
-  <li><a href="#vorhersage" id="toc-vorhersage" class="nav-link" data-scroll-target="#vorhersage"><span class="header-section-number">5.5</span> 3.Vorhersage</a></li>
+  <li><a href="#rezept" id="toc-rezept" class="nav-link" data-scroll-target="#rezept"><span class="header-section-number">6.1</span> Rezept</a></li>
+  <li><a href="#vorhersage-mit-workflow-set" id="toc-vorhersage-mit-workflow-set" class="nav-link" data-scroll-target="#vorhersage-mit-workflow-set"><span class="header-section-number">6.2</span> 2.Vorhersage mit Workflow-Set</a></li>
+  <li><a href="#bestes-modell-extrahieren" id="toc-bestes-modell-extrahieren" class="nav-link" data-scroll-target="#bestes-modell-extrahieren"><span class="header-section-number">6.3</span> Bestes Modell extrahieren</a></li>
+  <li><a href="#visualisierung" id="toc-visualisierung" class="nav-link" data-scroll-target="#visualisierung"><span class="header-section-number">6.4</span> Visualisierung</a></li>
+  <li><a href="#vorhersage" id="toc-vorhersage" class="nav-link" data-scroll-target="#vorhersage"><span class="header-section-number">6.5</span> 3.Vorhersage</a></li>
   </ul></li>
-  <li><a href="#prädiktives-modell-für-textdaten-von-hugging-face" id="toc-prädiktives-modell-für-textdaten-von-hugging-face" class="nav-link" data-scroll-target="#prädiktives-modell-für-textdaten-von-hugging-face"><span class="header-section-number">6</span> Prädiktives Modell für Textdaten von Hugging face</a></li>
-  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">7</span> Session-Info</a></li>
+  <li><a href="#prädiktives-modell-für-textdaten-von-hugging-face" id="toc-prädiktives-modell-für-textdaten-von-hugging-face" class="nav-link" data-scroll-target="#prädiktives-modell-für-textdaten-von-hugging-face"><span class="header-section-number">7</span> Prädiktives Modell für Textdaten von Hugging face</a></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">8</span> Session-Info</a></li>
   </ul>
 </nav>
     </div>
@@ -236,18 +237,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Hate Speech Klassifikation Die Klassifikation von Hate Speech mit R in der Version 4.3.1 bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Das Stastikprogramm R eignet sich gut zur Verarbeitung natürlicher Sprache und maschinellen Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren. Im Folgenden werden mit Hilfe verschiedener Textmining Methoden Tweets auf Hate Speech hin untersucht. Darüber hinaus werden prädiktive Modelle zur Klassifikation von Hate-Speech angewandt.</p>
-<section id="vorbereitung" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Vorbereitung</h1>
+<section id="hate-speech-klassifikation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Hate Speech Klassifikation</h1>
+<p><img src="images/hate speech.webp" class="img-fluid" width="524"></p>
+<p>Die Klassifikation von Hate Speech mit R in der Version 4.3.1 bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Das Stastikprogramm R eignet sich gut zur Verarbeitung natürlicher Sprache und maschinellen Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren. Im Folgenden werden mit Hilfe verschiedener Textmining Methoden Tweets auf Hate Speech hin untersucht. Darüber hinaus werden prädiktive Modelle zur Klassifikation von Hate-Speech angewandt.</p>
+</section>
+<section id="vorbereitung" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Vorbereitung</h1>
 <p>Zu Beginn wird sich mittels der explorativen Datenanalyse ein Überblick über die Tweets verschafft. Das hilft ein besseres Verständnis für die Daten zu erlangen. Außerdem können so geeignete Textfeatures zur Vorhersage identifiziert werden, welche später im Rezept mitaufgenommen werden.</p>
-<section id="daten-laden" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="daten-laden"><span class="header-section-number">1.1</span> Daten laden</h2>
+<section id="daten-laden" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="daten-laden"><span class="header-section-number">2.1</span> Daten laden</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d_hate<span class="ot">&lt;-</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(datenpfad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="pakete-laden" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="pakete-laden"><span class="header-section-number">1.1.1</span> Pakete laden</h3>
+<section id="pakete-laden" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="pakete-laden"><span class="header-section-number">2.1.1</span> Pakete laden</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span>
@@ -304,8 +309,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="tweets-aufbereiten" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Tweets aufbereiten</h1>
+<section id="tweets-aufbereiten" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Tweets aufbereiten</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d_hate1 <span class="ot">&lt;-</span> d_hate1 <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tweet =</span> <span class="fu">str_remove_all</span>(tweet, <span class="st">"http[s]?://</span><span class="sc">\\</span><span class="st">S+"</span>)) <span class="sc">%&gt;%</span></span>
@@ -328,16 +333,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Zudem gibt es keine fehlenden Werte und alle Variablen sind vom Typ ´character´. Das ist nur logisch, weil es sich um Text handelt und noch keine Tokenisierung durchgeführt wurde.</p>
-<section id="aufteilung-in-test--und-traindatensatz" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="aufteilung-in-test--und-traindatensatz"><span class="header-section-number">2.1</span> Aufteilung in Test- und Traindatensatz</h2>
+<section id="aufteilung-in-test--und-traindatensatz" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="aufteilung-in-test--und-traindatensatz"><span class="header-section-number">3.1</span> Aufteilung in Test- und Traindatensatz</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>d_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(d_hate1, <span class="at">prop =</span> .<span class="dv">8</span>, <span class="at">strata =</span> class)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>d_train <span class="ot">&lt;-</span> <span class="fu">training</span>(d_split)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>d_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(d_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="seiten-und-wörter-zählen" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="seiten-und-wörter-zählen"><span class="header-section-number">2.1.1</span> Seiten und Wörter zählen</h3>
+<section id="seiten-und-wörter-zählen" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="seiten-und-wörter-zählen"><span class="header-section-number">3.1.1</span> Seiten und Wörter zählen</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(d_train<span class="sc">$</span>tweet, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">w"</span>) <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -349,18 +354,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Nachstehend werden verschiedene Textmerkmale, auch als Textfeatures bezeichnet, untersucht. Durch das Analysieren der spezifischen Eigenschaften können Informationen über den Inhalt, die Struktur und die Bedeutung der Tweets gewonnen werden. Das hilft dabei, im späteren Verlauf Hassrede zu identifizieren. Anschließend werden die Tweets auf * Wortfrequenzen * Schimpfwörter * Emotionale Ladung untersucht.</p>
 </section>
 </section>
-<section id="tokenisierung" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="tokenisierung"><span class="header-section-number">2.2</span> Tokenisierung</h2>
+<section id="tokenisierung" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="tokenisierung"><span class="header-section-number">3.2</span> Tokenisierung</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> d_train <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, tweet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Tokenisierung stellt einen wichtigen Schritt in der Textverarbeitung dar. Sie teilt den Text in sinnvolle Einheiten, sogenannte Tokens auf. Erst das ermöglicht weitere Verarbeitungsschritte, wie beispielsweise die Stoppwordentfernung.</p>
 </section>
-<section id="entfernen-von-stopwords" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="entfernen-von-stopwords"><span class="header-section-number">2.3</span> Entfernen von Stopwords</h2>
-<section id="stopwords-für-deutsch-englisch-laden-und-kombinieren" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="stopwords-für-deutsch-englisch-laden-und-kombinieren"><span class="header-section-number">2.3.1</span> Stopwords für deutsch &amp; englisch laden und kombinieren</h3>
+<section id="entfernen-von-stopwords" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="entfernen-von-stopwords"><span class="header-section-number">3.3</span> Entfernen von Stopwords</h2>
+<section id="stopwords-für-deutsch-englisch-laden-und-kombinieren" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="stopwords-für-deutsch-englisch-laden-und-kombinieren"><span class="header-section-number">3.3.1</span> Stopwords für deutsch &amp; englisch laden und kombinieren</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stopwords_de, <span class="at">package =</span> <span class="st">"lsa"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stopwords_en, <span class="at">package =</span> <span class="st">"lsa"</span>)</span>
@@ -375,8 +380,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Das Entfernen von <em>stopwords</em> hat den Vorteil, dass durch das Entfernen häufig vorkommende Wörter ohne semantische Bedeutung wie “a”, “and”, “so”… Rauschen im Text reduziert und die Analysequalität verbessert wird. Darüber hinaus verringert sich die zu verarbeitende Datenmenge.</p>
 </section>
 </section>
-<section id="textlänge" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="textlänge"><span class="header-section-number">2.4</span> Textlänge</h2>
+<section id="textlänge" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="textlänge"><span class="header-section-number">3.4</span> Textlänge</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>text_length <span class="ot">&lt;-</span> tokens_filtered <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
@@ -384,8 +389,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Die Textlänge kann Aufschluss über die Menge und Vielfalt der Informationen der Tweets geben. Gibt es möglicherweisee ungewöhnliche kurze oder lange Tweets, die genauer betrachtet werden sollten?</p>
 </section>
-<section id="worthäufigkeit" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="worthäufigkeit"><span class="header-section-number">2.5</span> Worthäufigkeit</h2>
+<section id="worthäufigkeit" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="worthäufigkeit"><span class="header-section-number">3.5</span> Worthäufigkeit</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> tokens_filtered <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
@@ -445,8 +450,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="visualisierung-der-textlänge" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="visualisierung-der-textlänge"><span class="header-section-number">2.5.1</span> Visualisierung der Textlänge</h3>
+<section id="visualisierung-der-textlänge" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="visualisierung-der-textlänge"><span class="header-section-number">3.5.1</span> Visualisierung der Textlänge</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>text_length_filtered <span class="ot">&lt;-</span> tokens_filtered <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
@@ -464,8 +469,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Die Tweets bewegen sich alle in einem ähnlichen Rahmen und sind i.d.R zwischen drei und 13 Wörtern lang.</p>
 </section>
 </section>
-<section id="visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords"><span class="header-section-number">2.6</span> Visualisierung 1: Barplot der häufigsten Wörter ohne Stopwords</h2>
+<section id="visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="visualisierung-1-barplot-der-häufigsten-wörter-ohne-stopwords"><span class="header-section-number">3.6</span> Visualisierung 1: Barplot der häufigsten Wörter ohne Stopwords</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(word_freq_filtered, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(word, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"coral"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
@@ -477,8 +482,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Allein unter den 20 häufigsten Wörtern befinden sich bereits sieben Schimpfwörter. Die Genauigkeit der Grafik könnte noch verbessert werden, indem zum Beispiel ähnliche Ausdrücke wie “nigga” und “nigger” zusammengefasst werden, sodass der Barplot die kummulierte Häufigkeit anzeigt. Zusätzlich könnten weitere stopwords wie “it” durch die Hinzunahme eines weiteren Stopwords-Datensatzes entfernt werden.</p>
-<section id="wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen"><span class="header-section-number">2.6.1</span> Wörter ohne Aussagekraft aus tokenisierten Daten entfernen</h3>
+<section id="wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="wörter-ohne-aussagekraft-aus-tokenisierten-daten-entfernen"><span class="header-section-number">3.6.1</span> Wörter ohne Aussagekraft aus tokenisierten Daten entfernen</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tokens_filtered <span class="ot">&lt;-</span> tokens_filtered <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word <span class="sc">!=</span> <span class="st">"rt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -498,8 +503,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Ein ebenfalls sehr wichtiges Werkzeug zur Datenanalyse ist die Sentimentanalyse. Mit ihr kann festgestellt werden, ob unsere Tweets bzw. Tokens eine negative oder positive Polung aufweisen, wobei Hate Speech mit einer negativen einhergeht. Die Textdaten werden so gefiltert, dass nur Wörter mit Sentimentwerten übrig bleiben.</p>
 </section>
 </section>
-<section id="berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet"><span class="header-section-number">2.7</span> Berechnung der durchschnittlichen Sentimentwerte pro Polarität und Tweet</h2>
+<section id="berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="berechnung-der-durchschnittlichen-sentimentwerte-pro-polarität-und-tweet"><span class="header-section-number">3.7</span> Berechnung der durchschnittlichen Sentimentwerte pro Polarität und Tweet</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tokens_senti2 <span class="ot">&lt;-</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  tokens_senti <span class="sc">%&gt;%</span> </span>
@@ -520,8 +525,8 @@ argument.</code></pre>
 </div>
 </div>
 </section>
-<section id="zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz"><span class="header-section-number">2.8</span> Zusammenführung der Sentimentwerte und Textlänge in den Hauptdatensatz</h2>
+<section id="zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="zusammenführung-der-sentimentwerte-und-textlänge-in-den-hauptdatensatz"><span class="header-section-number">3.8</span> Zusammenführung der Sentimentwerte und Textlänge in den Hauptdatensatz</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sentis_wide <span class="ot">&lt;-</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  tokens_senti2 <span class="sc">%&gt;%</span> </span>
@@ -571,8 +576,8 @@ argument.</code></pre>
 </div>
 <p>Das Sentimentlexikon ist insgesamt mit einem Wert von -0.59 leicht negativ. Die Tweets liegen mit -1.01 deutlich im negativen Bereich.</p>
 </section>
-<section id="visualisierung-der-sentimentanalyse" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="visualisierung-der-sentimentanalyse"><span class="header-section-number">2.9</span> Visualisierung der Sentimentanalyse</h2>
+<section id="visualisierung-der-sentimentanalyse" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="visualisierung-der-sentimentanalyse"><span class="header-section-number">3.9</span> Visualisierung der Sentimentanalyse</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -597,8 +602,8 @@ argument.</code></pre>
 <hr>
 </section>
 </section>
-<section id="bigramme-identifizieren" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Bigramme identifizieren</h1>
+<section id="bigramme-identifizieren" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Bigramme identifizieren</h1>
 <p>Bigramme sind Paare von Wörtern, die häufig zusammen auftreten. Hierfür wird der Datensatz mit den Tweets verwenden, da Bigramme aus aufeinanderfolgenden Wortpaaren erstellt werden.</p>
 <p>Datensatz mit Tweets ohne stopwords erstellen</p>
 <div class="cell">
@@ -646,8 +651,8 @@ argument.</code></pre>
 10 charlie baker 18</code></pre>
 </div>
 </div>
-<section id="visualisierung-der-bigramme" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="visualisierung-der-bigramme"><span class="header-section-number">3.1</span> Visualisierung der Bigramme</h2>
+<section id="visualisierung-der-bigramme" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="visualisierung-der-bigramme"><span class="header-section-number">4.1</span> Visualisierung der Bigramme</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Top-Bigramme</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_bigrams, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(bigram, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
@@ -662,8 +667,8 @@ argument.</code></pre>
 </div>
 </div>
 </section>
-<section id="stemming" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="stemming"><span class="header-section-number">3.2</span> Stemming</h2>
+<section id="stemming" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="stemming"><span class="header-section-number">4.2</span> Stemming</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stemming</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>tokens_filtered<span class="sc">$</span>word <span class="ot">&lt;-</span> <span class="fu">wordStem</span>(tokens_filtered<span class="sc">$</span>word, <span class="at">language =</span> <span class="st">"en"</span>)</span>
@@ -716,8 +721,8 @@ argument.</code></pre>
 <hr>
 </section>
 </section>
-<section id="schimpfwörter" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Schimpfwörter</h1>
+<section id="schimpfwörter" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Schimpfwörter</h1>
 <p>Tabelle stammt hier her: https://www.kaggle.com/datasets/johnzhangy/swear-words-dataset</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>schimpf<span class="ot">&lt;-</span></span>
@@ -757,10 +762,10 @@ argument.</code></pre>
 <hr>
 <p>Nachdem ich mir mit der EDA einen Überblick über die Daten verschafft habe, werde ich jetzt verschiedene Algorithmen darauf trainieren, Hate Speech vorhersagen. Zu Beginn werde ich ein Rezept aufstellen, dass die Erkenntnisse meiner bisherigen Analyse aufgreift.</p>
 </section>
-<section id="vorhersage-mit-logistic-regression" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Vorhersage mit logistic regression</h1>
-<section id="rezept" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="rezept"><span class="header-section-number">5.1</span> Rezept</h2>
+<section id="vorhersage-mit-logistic-regression" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Vorhersage mit logistic regression</h1>
+<section id="rezept" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="rezept"><span class="header-section-number">6.1</span> Rezept</h2>
 <p>Das Rezept enthält die Textlänge, Sentimentwerte, Schimpfwörter und tfidf.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(syuzhet)</span>
@@ -870,8 +875,8 @@ Computational engine: naivebayes </code></pre>
 </div>
 <p>Puh, das ist ziemlich unterirdisch. Das Modell hat eine sehr geringe Sensitivität. Das bedeutet, dass es schlecht darin ist Hate Speech zu identifizieren. Das Modell arbeitet schlechter als ein zufälliger Klassifikator und sagt die falschen Klassen hervor. Ziel ist ein Modell aufzustellen, dessen ROC-Kurce nahe der y-Achse und an der oberen Grenze des Diagramms liegt. Dann hätte es eine hohe Sensitivität und Spezifität.</p>
 </section>
-<section id="vorhersage-mit-workflow-set" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="vorhersage-mit-workflow-set"><span class="header-section-number">5.2</span> 2.Vorhersage mit Workflow-Set</h2>
+<section id="vorhersage-mit-workflow-set" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="vorhersage-mit-workflow-set"><span class="header-section-number">6.2</span> 2.Vorhersage mit Workflow-Set</h2>
 <p>Modelle definieren</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"doParallel"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
@@ -961,13 +966,13 @@ Attache Paket: 'foreach'</code></pre>
 <pre><code>i 1 of 3 resampling: text_prep_xgb</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ 1 of 3 resampling: text_prep_xgb (7.6s)</code></pre>
+<pre><code>✔ 1 of 3 resampling: text_prep_xgb (8.2s)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>i 2 of 3 tuning:     text_prep_kknn</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ 2 of 3 tuning:     text_prep_kknn (7.2s)</code></pre>
+<pre><code>✔ 2 of 3 tuning:     text_prep_kknn (4.4s)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>i   No tuning parameters. `fit_resamples()` will be attempted</code></pre>
@@ -976,7 +981,7 @@ Attache Paket: 'foreach'</code></pre>
 <pre><code>i 3 of 3 resampling: text_prep_rf</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ 3 of 3 resampling: text_prep_rf (8.6s)</code></pre>
+<pre><code>✔ 3 of 3 resampling: text_prep_rf (7s)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>tune<span class="sc">::</span><span class="fu">autoplot</span>(results) <span class="sc">+</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -998,8 +1003,8 @@ Attache Paket: 'foreach'</code></pre>
 </div>
 </div>
 </section>
-<section id="bestes-modell-extrahieren" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="bestes-modell-extrahieren"><span class="header-section-number">5.3</span> Bestes Modell extrahieren</h2>
+<section id="bestes-modell-extrahieren" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="bestes-modell-extrahieren"><span class="header-section-number">6.3</span> Bestes Modell extrahieren</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>best_ml <span class="ot">&lt;-</span> </span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_workflow_set_result</span>(results, <span class="st">"text_prep_rf"</span>) <span class="sc">%&gt;%</span> </span>
@@ -1016,8 +1021,8 @@ Attache Paket: 'foreach'</code></pre>
 <span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>fit_final <span class="ot">&lt;-</span> <span class="fu">fit</span>(best_wf_finalized, <span class="at">data =</span> d_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="visualisierung" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="visualisierung"><span class="header-section-number">5.4</span> Visualisierung</h2>
+<section id="visualisierung" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="visualisierung"><span class="header-section-number">6.4</span> Visualisierung</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1035,12 +1040,12 @@ Attache Paket: 'foreach'</code></pre>
 </div>
 </div>
 </section>
-<section id="vorhersage" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="vorhersage"><span class="header-section-number">5.5</span> 3.Vorhersage</h2>
+<section id="vorhersage" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="vorhersage"><span class="header-section-number">6.5</span> 3.Vorhersage</h2>
 </section>
 </section>
-<section id="prädiktives-modell-für-textdaten-von-hugging-face" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Prädiktives Modell für Textdaten von Hugging face</h1>
+<section id="prädiktives-modell-für-textdaten-von-hugging-face" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Prädiktives Modell für Textdaten von Hugging face</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -1093,8 +1098,8 @@ Attache Paket: 'foreach'</code></pre>
 </div>
 <p>Das Modell hat eine Genauigkeit von 91%. Das nenne ich traumhaft. Kein Vergleich zu den vorherigen Modellen.</p>
 </section>
-<section id="session-info" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Session-Info</h1>
+<section id="session-info" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Session-Info</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
