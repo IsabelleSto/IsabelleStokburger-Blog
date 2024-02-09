@@ -12,7 +12,7 @@ image: "Titelbild.webp"
 
 Die Klassifikation von Hate Speech mit R in der Version 4.3.1 bietet eine effiziente Methode, um digitale Kommunikation auf toxische Inhalte zu analysieren. Das Stastikprogramm R eignet sich gut zur Verarbeitung natürlicher Sprache und maschinellen Lernen, um Hate Speech in Textdaten zu identifizieren und zu kategorisieren. Im Folgenden werden mit Hilfe verschiedener Textmining Methoden Tweets auf Hate Speech hin untersucht. Darüber hinaus werden prädiktive Modelle zur Klassifikation von Hate-Speech angewandt.
 
-# Vorbereitung
+# Vorbereitung und EDA
 
 Zu Beginn wird sich mittels der explorativen Datenanalyse ein Überblick über die Tweets verschafft. Das hilft ein besseres Verständnis für die Daten zu erlangen. Außerdem können so geeignete Textfeatures zur Vorhersage identifiziert werden, welche später im Rezept mitaufgenommen werden.
 
@@ -39,13 +39,13 @@ library(discrim)
 library(naivebayes)
 library(textrecipes) 
 library(syuzhet)
-library(tokenizers)  # Tokenisieren
-library(tidytext)  # Textanalyse-Tools
-library(SnowballC)  # Stemming
-library(lsa)  # Stopwörter
-library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
-library(textclean)  # Emojis ersetzen
-library(wordcloud)  # unübersichtlich, aber manche mögen es
+library(tokenizers)  
+library(tidytext)  
+library(SnowballC)  
+library(lsa)  
+library(easystats)  
+library(textclean)  
+library(wordcloud)  
 library(ggplot2)
 library(textrecipes)
 library(workflowsets)
@@ -138,7 +138,7 @@ Die Tokenisierung stellt einen wichtigen Schritt in der Textverarbeitung dar. Si
 
 ## Entfernen von Stopwords
 
-### Stopwords für englisch laden
+### Stopwords laden
 
 ```{r}
 data(stopwords_de, package = "lsa")
@@ -216,54 +216,6 @@ tokens_filtered <- tokens_filtered %>%
 ```
 
 Da der Ausdruck "rt" keine Aussagekraft hat, wird er aus dem Datensatz entfernt.
-
-
-## Sprache der Tweets
-
-```{r message=FALSE, warning=FALSE}
-library(reticulate)
-py_install("pandas")
-py_install("langdetect")
-py_install("matplotlib")
-```
-
-```{python}
-import pandas as pd
-
-# Achte darauf, doppelte Backslashes zu verwenden oder den String als Raw-String zu kennzeichnen
-file_path = 'C:\\Users\\isast\\Documents\\Laptop\\HS Ansbach\\5. Semester\\Data Science II\\Prüfung\\d_hate.csv'
-
-# Verwende den korrekten Pfad, um deine CSV-Datei zu laden
-df = pd.read_csv(file_path)
-
-# Jetzt kannst du mit deinem DataFrame in Python arbeiten
-print(df.head())
-
-```
-
-```{python}
-from langdetect import detect
-from collections import Counter
-import matplotlib.pyplot as plt
-
-# Funktion zur Erkennung der Sprache eines Tweets
-def detect_language_from_tweet(tweet):
-    try:
-        # Erkenne die Sprache des Tweets
-        return detect(tweet)
-    except Exception as e:
-        # Im Fehlerfall gib 'unbekannt' zurück
-        return 'unbekannt'
-
-# Spracherkennung auf jeden Tweet anwenden
-df['detected_language'] = df['tweet'].apply(detect_language_from_tweet)
-
-# Überprüfung der ersten paar Zeilen, um zu sehen, ob die Spracherkennung funktioniert hat
-print(df[['tweet', 'detected_language']].head())
-
-```
-
-Gut zu wissen. Die Tweets sind fast ausschließlich in englisch. Wenige Ausnahmen, wie "af", dass in der Spracherkennung normalerweise für Afrikaans, eine Sprache, die hauptsächlich in Südafrika und Namibia gesprochen wird, können bei der verschwindend geringen Menge vernachlässigt werden und es kann auf ein englisches Schimpfwort- & Sentimentlexikon zurückgegriffen werden.
 
 
 ------------------------------------------------------------------------
@@ -502,7 +454,7 @@ Nachdem ich mir mit der EDA einen Überblick über die Daten verschafft habe, we
 
 # Tidymodels
 
-# 1. Vorhersage mit logistic regression
+## 1. Vorhersage mit logistic regression
 
 Auf das Tunen wird bei der ersten Vorhersage verzichtet, um die Komplexität des Modells gering zu halten und somit Rechenzeit zu sparen.
 
@@ -561,7 +513,7 @@ baked
 
 Modell
 
-```{r}
+```{r output = FALSE}
 lm <- naive_Bayes() %>%
   set_mode("classification") %>%
   set_engine("naivebayes")
@@ -570,14 +522,14 @@ lm
 
 Kreuzvalidierung
 
-```{r}
+```{r output = FALSE}
 set.seed(42)
 folds1 <- vfold_cv(d_train, v = 5)
 ```
 
 Workflow
 
-```{r}
+```{r output = FALSE}
 wf1 <-
   workflow() %>% 
   add_recipe(rec1) %>% 
@@ -745,15 +697,11 @@ predictions %>%
 
 Im Idealfall wäre links nur blaue Balken und rechts nur rote, sodass es keine Überschneidung gibt. Dann wäre die Vorhersage sehr genau und Hate Speech würde korrekt erkannt werden. Obwohl hier kein Sentiment- & Schimpfwortanalyse durcchgeführt wurde, schneidet der RandomForest Algorithmus besser ab, als die anderen drei.
 
-
-
 # Hugging Face Modell
 
-## 3. Vorhersage
+## 3. Vorhersage: Hugging face modell
 
-# Prädiktives Modell für Textdaten von Hugging face
-
-Für die dritte Vorhersage nutze ich ein neuronales Netz, dass bereits trainiert wurde und von Hugging Face bezogen wird. 
+Für die dritte Vorhersage nutze ich ein neuronales Netz, dass bereits trainiert wurde und von Hugging Face bezogen wird.
 
 ```{r}
 library(reticulate)
@@ -803,8 +751,76 @@ my_metrics2(twitter_analysis,
            estimate = prediction)
 ```
 
-Das Modell hat eine Genauigkeit von 91%. Das nenne ich traumhaft. Kein Vergleich zu den vorherigen Modellen. 
+Das Modell hat eine Genauigkeit von 91%. Das nenne ich traumhaft. Kein Vergleich zu den vorherigen Modellen.
 
+
+## Nachtrag EDA: Sprache der Tweets
+
+```{r message=FALSE, warning=FALSE}
+py_install("pandas")
+py_install("langdetect")
+py_install("matplotlib")
+```
+
+```{python}
+import pandas as pd
+
+file_path = 'C:\\Users\\isast\\Documents\\Laptop\\HS Ansbach\\5. Semester\\Data Science II\\Prüfung\\d_hate.csv'
+
+df = pd.read_csv(file_path)
+
+print(df.head())
+
+```
+
+```{python}
+from langdetect import detect
+from collections import Counter
+import matplotlib.pyplot as plt
+
+# Funktion zur Erkennung der Sprache eines Tweets
+def detect_language_from_tweet(tweet):
+    try:
+        # Erkenne die Sprache des Tweets
+        return detect(tweet)
+    except Exception as e:
+        # Im Fehlerfall gib 'unbekannt' zurück
+        return 'unbekannt'
+
+# Spracherkennung auf jeden Tweet anwenden
+df['detected_language'] = df['tweet'].apply(detect_language_from_tweet)
+
+# Überprüfung der ersten paar Zeilen, um zu sehen, ob die Spracherkennung funktioniert hat
+print(df[['tweet', 'detected_language']].head())
+
+```
+
+
+```{r}
+df_r <- py$df
+
+head(df_r)
+```
+
+
+```{r}
+# Anzahl der Tweets pro Sprache
+language_counts_df <- df_r %>%
+  count(detected_language) %>%
+  arrange(desc(n))
+
+# Balkendiagramm der Sprachverteilung
+ggplot(language_counts_df, aes(x = detected_language, y = n, fill = detected_language)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = 'Verteilung der erkannten Sprachen in Tweets',
+       x = 'Sprache',
+       y = 'Anzahl der Tweets') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+
+Gut zu wissen. Die Tweets sind fast ausschließlich in englisch. Wenige Ausnahmen, wie "af", dass in der Spracherkennung normalerweise für Afrikaans, eine Sprache, die hauptsächlich in Südafrika und Namibia gesprochen wird, können bei der verschwindend geringen Menge vernachlässigt werden und es kann auf ein englisches Schimpfwort- & Sentimentlexikon zurückgegriffen werden.
 
 
 # Fazit

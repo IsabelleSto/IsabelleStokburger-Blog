@@ -1,0 +1,75 @@
+---
+title: "test"
+---
+
+```{r}
+
+```
+
+```{python}
+import pandas as pd
+
+# Achte darauf, doppelte Backslashes zu verwenden oder den String als Raw-String zu kennzeichnen
+file_path = 'C:\\Users\\isast\\Documents\\Laptop\\HS Ansbach\\5. Semester\\Data Science II\\Prüfung\\d_hate.csv'
+
+# Verwende den korrekten Pfad, um deine CSV-Datei zu laden
+df = pd.read_csv(file_path)
+
+# Jetzt kannst du mit deinem DataFrame in Python arbeiten
+print(df.head())
+
+
+from langdetect import detect
+from collections import Counter
+import matplotlib.pyplot as plt
+
+# Funktion zur Erkennung der Sprache eines Tweets
+def detect_language_from_tweet(tweet):
+    try:
+        # Erkenne die Sprache des Tweets
+        return detect(tweet)
+    except Exception as e:
+        # Im Fehlerfall gib 'unbekannt' zurück
+        return 'unbekannt'
+
+# Spracherkennung auf jeden Tweet anwenden
+df['detected_language'] = df['tweet'].apply(detect_language_from_tweet)
+
+# Überprüfung der ersten paar Zeilen, um zu sehen, ob die Spracherkennung funktioniert hat
+print(df[['tweet', 'detected_language']].head())
+
+```
+
+```{r}
+# Dieser Code hängt davon ab, dass der vorherige Python-Code erfolgreich ausgeführt wurde
+# und 'df' ist der Name des Pandas DataFrame in Python
+
+# Aktivieren Sie die Python-Engine
+library(reticulate)
+
+# Laden Sie den DataFrame in R
+df_r <- py$df
+
+# Überprüfen Sie die ersten paar Zeilen des DataFrame
+head(df_r)
+
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Zählen Sie die Anzahl der Tweets pro Sprache
+language_counts_df <- df_r %>%
+  count(detected_language) %>%
+  arrange(desc(n))
+
+# Erstellen Sie ein Balkendiagramm der Sprachverteilung
+ggplot(language_counts_df, aes(x = detected_language, y = n, fill = detected_language)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = 'Verteilung der erkannten Sprachen in Tweets',
+       x = 'Sprache',
+       y = 'Anzahl der Tweets') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) # X-Achsen-Beschriftungen rotieren
+```
